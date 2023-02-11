@@ -1,0 +1,13 @@
+body{
+    align-items: center;
+    padding: 40px;
+}
+.cointainer{
+    background-color: cornflowerblue;
+    border-radius: 12px;
+    align-content: space-around;
+    padding: 10px;
+}
+.cointainer-inside{
+    background-color: antiquewhite;
+}
