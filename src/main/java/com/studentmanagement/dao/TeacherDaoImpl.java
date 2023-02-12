@@ -9,8 +9,8 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	/**
 	 * DataBase Queryes where email is taken as Primery Key
 	 */
-	private final String CREATE_QUERY = "insert into teachers (name,father,sex,dob,phone,email,pass,attendance,salary) values (?,?,?,?,?,?,?,?)";
-	private final String SELECT_QUERY = "select * from teacher where email = ?";
+	private final String CREATE_QUERY = "insert into teachers (name,father,sex,dob,phone,email,pass,attendance,salary) values (?,?,?,?,?,?,?,?,?)";
+	private final String SELECT_QUERY = "select * from teachers where email = ?";
 	private final String UPDATE_QUERY =	"update teachers set name = ? ,father = ?, pass = ? , dob = ? , phone = ? ,sex = ?,salary = ?, attendance =? where email = ?";
 	private final String DELETE_QUERY = "delete from teachers where email = ?";
 	
@@ -30,9 +30,11 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	private String name,father,email,pass,phone,sex,dob;
 	private long salary;
 	
+	private Teacher teacher = null ;
+	
 	@Override
 	public int create(Teacher teacher) {
-
+		System.out.println("TeacherDaoImpl --> Create");
 		// Setting all the values to instance variables
 		name = teacher.getName();
 		father = teacher.getFather();
@@ -47,8 +49,10 @@ public class TeacherDaoImpl implements TeacherDaoI {
 		try {
 			connection = DbConnectionUtil.getDbConnection();
 			if (connection != null) {
+				System.out.println("--> Connection is Created");
 				pStatement = connection.prepareStatement(CREATE_QUERY);
 				if (pStatement != null) {
+					System.out.println("--> PStatement is Created");
 					pStatement.setString(1, name);
 					pStatement.setString(2, father);
 					pStatement.setString(3, sex);
@@ -70,7 +74,56 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	}
 
 	@Override
-	public Teacher read(int teacherId) {
+	public Teacher read(String email) {
+		System.out.println("TeacherDaoImpl --> read");
+		if(connection == null ) {
+			connection = DbConnectionUtil.getDbConnection();
+		}
+		System.out.println("--> connection is Ready");
+		try {
+			pStatement = connection.prepareStatement(SELECT_QUERY);
+			if(pStatement != null) {
+				System.out.println("--> statement is ready");
+				pStatement.setString(1, email);
+				results = pStatement.executeQuery();
+				if(results != null) {
+					System.out.println("--> got values from db");
+					if(results.next()) {
+						System.out.println("--> creating an teacher object ");
+						id = results.getInt("teacherId");
+						name = results.getString("name");
+						father = results.getString("father");
+						dob = results.getString("dob");
+						sex = results.getString("sex");
+						phone = results.getString("phone");
+						email = results.getString("email");
+						pass = results.getString("pass");
+						salary = results.getLong("salary");
+						attendance = results.getInt("attendance");
+						
+						// creating a teacher object
+						teacher = new Teacher(id, name, father, email, pass, dob, phone, sex, salary, attendance);
+						System.out.println("--> created and sent");
+						return teacher;
+						
+						
+					}
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("TeacherDaoImpl --> Exception");
+			e.printStackTrace();
+		}finally {
+			try {
+				System.out.println("--> closing used resources");
+				connection.close();
+				pStatement.close();
+				System.out.println("--> closed");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		return null;
 	}

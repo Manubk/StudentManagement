@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mysql.cj.Session;
+import com.studentmanagement.bean.Student;
 import com.studentmanagement.bean.Teacher;
 import com.studentmanagement.dao.TeacherDaoI;
 import com.studentmanagement.dao.TeacherDaoImpl;
@@ -27,8 +28,9 @@ public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PreparedStatement query = null;
 	private Connection connection = null;
-	private PrintWriter out ;
-	private TeacherDaoI tdao = null ;
+	private int tdao ;
+	private Student student;
+	private Teacher teacher;
 	
 
 	/**
@@ -36,8 +38,11 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	private String insertTeacherQuery = "insert into teachers (email,pass,name,father,dob,sex,phone) values (?,?,?,?,?,?,?)";
 	private String insertStudentQuery = "insert into students (email,pass,name,father,dob,sex,phone) values (?,?,?,?,?,?,?)";
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			//Getting the values form request object
+		HttpSession session = request.getSession();	
+		
+		//Getting the values form request object
 		    String role = request.getParameter("role");
 		    String email = request.getParameter("email");
 			String pass = request.getParameter("password");
@@ -46,45 +51,23 @@ public class SignUpServlet extends HttpServlet {
 			String dob = request.getParameter("dob");
 			String sex = request.getParameter("sex");
 			String phone = request.getParameter("phone");
-		try {
-			//Getting connection from util class and getting preparedstatement using conection
-				connection = DbConnectionUtil.getDbConnection();
-				if(connection!=null) {
+				try {
+					//if the role is teacher 
 					if(role.equalsIgnoreCase("teacher")) {
-						Teacher teacher = new Teacher(email, pass, name, father, dob, phone, sex);
+						teacher = new Teacher(email, pass, name, father, dob, phone, sex);
 						tdao = new TeacherDaoImpl().create(teacher);
-					query = connection.prepareStatement(insertTeacherQuery);
-				}else if(role.equalsIgnoreCase("student")) {
-					query = connection.prepareStatement(insertStudentQuery);
-				}
-					query.setString(1, email);
-					query.setString(2, pass);
-					query.setString(3, name);
-					query.setString(4, father);
-					query.setString(5, dob);
-					query.setString(6,sex);
-					query.setString(7, phone);
-				
-					int result = query.executeUpdate();
-				
-					//adding email to the session to validate through out the session
-					HttpSession session = request.getSession();
-					session.setAttribute(email, email);
-					request.getRequestDispatcher("/Home.jsp").forward(request, response);
-				
-				}else {
-					// If connection fails go to signup page
-					request.getRequestDispatcher("/signup.jsp").forward(request, response);
-					
+					}else if(role.equalsIgnoreCase("student")) {
+					//should create a code
+					}
+					if(tdao > 0)
+					System.out.println("SignUpServlet --> Created Sucessfully");
+					response.sendRedirect("login.jsp");
+				} catch (Exception e) {
+					response.sendRedirect("signup.jsp");
 				}
 				
 			
-			
-			
-		} catch (SQLException e) {
-			//request.getRequestDispatcher("/signup.jsp").forward(request, response);
-			e.printStackTrace();
-		}
+		
 		
 	}
 

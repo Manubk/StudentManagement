@@ -24,6 +24,24 @@ public class Teacher {
 		this.sex = sex;
 	
 	}
+	
+	
+	public Teacher(int teacher_id, String name, String father, String email, String pass, String dob, String phone,
+			String sex, long salary, int attendance) {
+		super();
+		this.teacher_id = teacher_id;
+		this.name = name;
+		this.father = father;
+		this.email = email;
+		this.pass = pass;
+		this.dob = dob;
+		this.phone = phone;
+		this.sex = sex;
+		this.salary = salary;
+		this.attendance = attendance;
+	}
+
+
 	public int getTeacher_id() {
 		return teacher_id;
 	}

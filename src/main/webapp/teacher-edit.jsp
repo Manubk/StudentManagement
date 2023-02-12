@@ -7,8 +7,8 @@
 
 <!-- varifying if the user is login or not -->
 <%
-		if(session.getAttribute("userName") == null )
-				response.sendRedirect("signup.jsp");
+if(session.getAttribute("userName") == null )
+	response.sendRedirect("signup.jsp");
 %>
 
 <% 
@@ -74,7 +74,7 @@
         
      </table>
      <br>
-     <button href="<%=request.getContextPath() %>/editteacher" >Edit</button>
+     <button  >Edit</button>
 
      <footer>
         <a href="#">Privacy Policy</a>&ensp;

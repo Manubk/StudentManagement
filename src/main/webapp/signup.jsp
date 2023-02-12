@@ -6,60 +6,66 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="stylesheet/stylesheet.css">
+    <title>MBK Edu | Signup</title>
 </head>
 <body>
-   
-<div class="cointainer">
-   <h1>Sign Up</h1>
-    <form action="signup" class="form" method="post">
-   
-    <div class="cointainer-inside">
-        <label>Role</label>
-        <select name="role">
-            <option selected>Select</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
-        </select>
+    <div class="parent">
+        <div class="child">
+            <h1 style="text-align: center">Sign Up</h1>
+            <form action="signup" method="post">
+                <table>
+                    <tr>
+                        <th>Role :</th>
+                        <td>
+                          <select name="role">
+                            <option selected>Select</option>
+                            <option value="teacher" >Teacher</option>
+                            <option value="student">Student</option>
+                          </select>
+                        </td>
+                      </tr>
+                    <tr>
+                        <th>Name :</th>
+                        <td><input type="text" name="name" ></td>
+                    </tr>
+                    <tr>
+                        <th>Father :</th>
+                        <td><input type="text" name="father" ></td>
+                    </tr>
+                    <tr>
+                        <th>Dob :</th>
+                        <td><input type="date" name="dob" ></td>
+                    </tr>
+                    <tr>
+                        <th>Gender :</th>
+                        <td>
+                            <input type="radio" name="sex" value="f">
+                            <label>M</label>
+                            <input type="radio" name="sex" value="f">
+                            <label>F</label>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <th>Phone :</th>
+                        <td><input type="number"  name="phone" ></td>
+                    </tr>
+                    <tr>
+                        <th>Email :</th>
+                        <td><input type="email" name="email" ></td>
+                    </tr>
+                    <tr>
+                        <th>Pass :</th>
+                        <td><input type="password" name="password" ></td>
+                    </tr>
+                </table>
+                <input type="submit"> 
+            </form>
+            <br>
+            <a href="login.jsp">Existing User</a>
+        </div>
     </div>
-    <div class="cointainer-inside">
-        <label>Name</label>
-        <input type="text" name="name" required placeholder="Your Name">
-    </div>
-    <div class="cointainer-inside">
-        <label>Father</label>
-        <input type="text" name="father" required placeholder="Father name">
-    </div>
-    <div class="cointainer-inside">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="example@email.com">
-    </div>
-    <div class="cointainer-inside">
-        <label>Password</label>
-        <input type="password" name="password">
-    </div>
-    <div class="cointainer-inside">
-        <label>Phone</label>
-        <input type="text" name="phone">
-    </div>
-    <div class="cointainer-inside">
-        <label>DOB</label>
-        <input type="date" name="dob">
-    </div>
-    <div class="cointainer-inside">
-        <label>Sex</label>
-        <input type="radio" name="sex" value="f">
-        <label>F</label>
-        <input type="radio" name="sex" value="m">
-        <label>M</label>
-    </div>
-    <div class="cointainer-inside">
-        <input type="submit" class="button" value="sign up">
-    </div>
-</form>
-<a href="login.jsp">Existing User</a>
-     </div>
     
 </body>
 </html>
