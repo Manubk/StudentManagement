@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import com.mysql.cj.Session;
 import com.studentmanagement.bean.Student;
 import com.studentmanagement.bean.Teacher;
+import com.studentmanagement.dao.StudentDaoI;
 import com.studentmanagement.dao.TeacherDaoI;
 import com.studentmanagement.dao.TeacherDaoImpl;
+import com.studentmanagement.util.DaoUtil;
 import com.studentmanagement.util.DbConnectionUtil;
 
 /**
@@ -26,48 +28,56 @@ import com.studentmanagement.util.DbConnectionUtil;
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private PreparedStatement query = null;
-	private Connection connection = null;
-	private int tdao ;
 	private Student student;
 	private Teacher teacher;
+	private String role ;
+	private int result;
+	private TeacherDaoI teacherDao = null;
+	private StudentDaoI studentDao = null;
 	
 
-	/**
-	 * Db queryes
-	 */
-	private String insertTeacherQuery = "insert into teachers (email,pass,name,father,dob,sex,phone) values (?,?,?,?,?,?,?)";
-	private String insertStudentQuery = "insert into students (email,pass,name,father,dob,sex,phone) values (?,?,?,?,?,?,?)";
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();	
-		
-		//Getting the values form request object
-		    String role = request.getParameter("role");
-		    String email = request.getParameter("email");
-			String pass = request.getParameter("password");
-			String name = request.getParameter("name");
-			String father = request.getParameter("father");
-			String dob = request.getParameter("dob");
-			String sex = request.getParameter("sex");
-			String phone = request.getParameter("phone");
-				try {
-					//if the role is teacher 
-					if(role.equalsIgnoreCase("teacher")) {
-						teacher = new Teacher(email, pass, name, father, dob, phone, sex);
-						tdao = new TeacherDaoImpl().create(teacher);
-					}else if(role.equalsIgnoreCase("student")) {
-					//should create a code
-					}
-					if(tdao > 0)
-					System.out.println("SignUpServlet --> Created Sucessfully");
+				role = request.getParameter("role");
+				
+				switch (role) {
+				case "admin": 
+					//for admit code is peding
+					break;
+					
+				//setting the values from request object to teacher directly
+				case "teacher": teacher = new Teacher(request.getParameter("name"),request.getParameter("dob"),
+								request.getParameter("sex"),request.getParameter("father"),
+								request.getParameter("phone"),request.getParameter("email"),
+								request.getParameter("password"),0,0);
+	
+					teacherDao = (teacherDao != null )?teacherDao:DaoUtil.getTeacherDaoObject();
+					result = teacherDao.create(teacher);
+					if(result > 0)
+						response.sendRedirect("login.jsp");
+					else
+						response.sendRedirect("signup.jsp");
+					break;
+				
+				//Setting the values from request object to student constructor
+				case "student": student = new Student(0,request.getParameter("name"),
+						request.getParameter("dob"),request.getParameter("sex"),
+						request.getParameter("father"),null,request.getParameter("phone"),
+						null,request.getParameter("email"),request.getParameter("password"),0,0,0);
+				
+				studentDao = (studentDao!=null)?studentDao:DaoUtil.getStudentDaoObject();
+				result = studentDao.create(student);
+				
+				if(result > 0) {
+					System.out.println("--> signUp sucess");
 					response.sendRedirect("login.jsp");
-				} catch (Exception e) {
+				}else {
+					System.out.println("--> signup not sucess");
 					response.sendRedirect("signup.jsp");
 				}
+					
+				}
 				
-			
-		
 		
 	}
 

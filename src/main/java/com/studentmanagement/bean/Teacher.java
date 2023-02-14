@@ -5,40 +5,45 @@ import java.net.PasswordAuthentication;
 public class Teacher {
 	private int teacher_id;
 	private String name;
+	private String dob;
+	private String sex ;
 	private String father;
+	private String phone;
 	private String email;
 	private String pass;
-	private String dob;
-	private String phone;
-	private String sex ;
-	private long salary ;
 	private int attendance;
-	public Teacher( String email, String pass ,String name, String father, String dob, String phone, String sex) {
+	private long salary ;
+	
+	//Initial  creation of teacher
+	public Teacher(String name, String dob, String sex, String father, String phone, String email, String pass,
+			int attendance, long salary) {
 		super();
 		this.name = name;
+		this.dob = dob;
+		this.sex = sex;
 		this.father = father;
+		this.phone = phone;
 		this.email = email;
 		this.pass = pass;
-		this.dob = dob;
-		this.phone = phone;
-		this.sex = sex;
-	
+		this.attendance = attendance;
+		this.salary = salary;
 	}
 	
-	
-	public Teacher(int teacher_id, String name, String father, String email, String pass, String dob, String phone,
-			String sex, long salary, int attendance) {
+
+	//to update the teacher object here email is taken as USERNAME or primary key
+	public Teacher(int teacher_id, String name, String dob, String sex, String father, String phone,String email, String pass,
+			int attendance, long salary) {
 		super();
 		this.teacher_id = teacher_id;
 		this.name = name;
+		this.dob = dob;
+		this.sex = sex;
 		this.father = father;
+		this.phone = phone;
 		this.email = email;
 		this.pass = pass;
-		this.dob = dob;
-		this.phone = phone;
-		this.sex = sex;
-		this.salary = salary;
 		this.attendance = attendance;
+		this.salary = salary;
 	}
 
 
@@ -103,8 +108,12 @@ public class Teacher {
 		this.attendance = attendance;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Teacher [teacher_id=" + teacher_id + ", name=" + name + ", dob=" + dob + ", sex=" + sex + ", father="
+				+ father + ", phone=" + phone + ", email=" + email + ", pass=" + pass + ", attendance=" + attendance
+				+ ", salary=" + salary + "]";
+	}
 	
 
 }

@@ -10,7 +10,18 @@
     <title>MBK Edu | Login</title>
   </head>
   <body>
-
+  <% if(request.getAttribute("loginstatus")!=null){
+	  	String loginError = (String)request.getAttribute("loginstatus");
+	  if(loginError.equalsIgnoreCase("false")){
+		  %>
+		  <p style="text-align: center; color: red;">Wrong Credentials</p>
+	 <%
+	  }
+  }
+	 %> 
+	  
+  
+  
     <div class="parent">
       <div class="child1">
         <h1>Sign in</h1>

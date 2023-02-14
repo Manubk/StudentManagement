@@ -27,7 +27,7 @@
                       </tr>
                     <tr>
                         <th>Name :</th>
-                        <td><input type="text" name="name" ></td>
+                        <td><input type="text" name="name"  required="required"></td>
                     </tr>
                     <tr>
                         <th>Father :</th>
@@ -49,15 +49,15 @@
                     </tr>
                     <tr>
                         <th>Phone :</th>
-                        <td><input type="number"  name="phone" ></td>
+                        <td><input type="number"  name="phone" required="required" ></td>
                     </tr>
                     <tr>
                         <th>Email :</th>
-                        <td><input type="email" name="email" ></td>
+                        <td><input type="email" name="email" required="required"></td>
                     </tr>
                     <tr>
                         <th>Pass :</th>
-                        <td><input type="password" name="password" ></td>
+                        <td><input type="password" name="password" required="required"></td>
                     </tr>
                 </table>
                 <input type="submit"> 

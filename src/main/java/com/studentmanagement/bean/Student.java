@@ -4,24 +4,58 @@ public class Student {
 	private int student_Id ;
 	private int class_Id;
 	private String name;
-	private String father;
 	private String dob;
+	private String sex;
+	private String father;
+	private String mother;
+	private String phone;
+	private String parPhone;
 	private String email;
 	private String pass;
-	private long freePaid;
-	private int attandance;
 	private int grade;
-	private String phone;
-	private String sex;
-	public Student(String name, String father, String dob, String email, String pass, String phone, String sex) {
+	private int attandance;
+	private long freePaid;
+	
+	//for starting creation studentid is generated automaticall by DB
+	public Student(int class_Id, String name, String dob, String sex, String father, String mother, String phone,
+			String parPhone,String email, String pass, int grade, int attandance, long freePaid) {
+		super();
+		this.class_Id = class_Id;
 		this.name = name;
-		this.father = father;
 		this.dob = dob;
+		this.sex = sex;
+		this.father = father;
+		this.mother = mother;
+		this.phone = phone;
+		this.parPhone = parPhone;
 		this.email = email;
 		this.pass = pass;
-		this.phone = phone;
-		this.sex = sex;
+		this.grade = grade;
+		this.attandance = attandance;
+		this.freePaid = freePaid;
 	}
+	
+	//For update purpose taken email as username
+	public Student(int student_Id ,int class_Id, String name, String dob, String sex, String father, String mother, String phone,
+			String parPhone,String email, String pass, int grade, int attandance, long freePaid) {
+		super();
+		this.student_Id = student_Id;
+		this.class_Id = class_Id;
+		this.name = name;
+		this.dob = dob;
+		this.sex = sex;
+		this.father = father;
+		this.mother = mother;
+		this.phone = phone;
+		this.parPhone = parPhone;
+		this.email = email;
+		this.pass = pass;
+		this.grade = grade;
+		this.attandance = attandance;
+		this.freePaid = freePaid;
+	}
+
+
 	public int getStudent_Id() {
 		return student_Id;
 	}
@@ -94,7 +128,29 @@ public class Student {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	
+	public String getMother() {
+		return mother;
+	}
+	public void setMother(String mother) {
+		this.mother = mother;
+	}
+
+
+	public String getParPhone() {
+		return parPhone;
+	}
+
+	public void setParPhone(String parPhone) {
+		this.parPhone = parPhone;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [student_Id=" + student_Id + ", class_Id=" + class_Id + ", name=" + name + ", dob=" + dob
+				+ ", sex=" + sex + ", father=" + father + ", mother=" + mother + ", phone=" + phone + ", parPhone="
+				+ parPhone + ", email=" + email + ", pass=" + pass + ", grade=" + grade + ", attandance=" + attandance
+				+ ", freePaid=" + freePaid + "]";
+	}
 	
 	
 	

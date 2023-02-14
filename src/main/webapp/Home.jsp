@@ -1,3 +1,9 @@
+<%@page import="com.studentmanagement.dao.StudentDaoI"%>
+<%@page import="com.studentmanagement.dao.TeacherDaoI"%>
+<%@page import="com.studentmanagement.util.DaoUtil"%>
+<%@page import="com.studentmanagement.controller.TeacherController"%>
+<%@page import="com.studentmanagement.util.DbConnectionUtil"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="org.apache.coyote.Request"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Import"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -17,31 +23,58 @@
 <body>
 
 	<% 
-		if(session.getAttribute("userName") == null)
+	String userName =(String)session.getAttribute("userName");
+		if(userName == null)
 			response.sendRedirect("login.jsp");
+	%>	
+<!-- 	declearing the required variables for this page -->
+	<%
+	TeacherDaoI teacherDao = DaoUtil.getTeacherDaoObject();
+	StudentDaoI studentDao = DaoUtil.getStudentDaoObject();
 		
-	    String profile = request.getContextPath();	
-		String role = (String)session.getAttribute("role");
-		
-		if(role.equalsIgnoreCase("admin")){
-			
-		}else if(role.equalsIgnoreCase("teacher")){
-			profile+="/teacher.jsp";
-		}else if(role.equalsIgnoreCase("student")){
-			
-		}
-		
-		session.setAttribute("profile", profile);
+	int totalTeachers = 0;
+	int totalStudents = 0;
+	int totalCalsses = 0;
+	String role = (String)session.getAttribute("role");
+	String profile = request.getContextPath();
 	%>
+<!-- 	getting total number fo teachers and students-->
+	<%
+	totalTeachers = teacherDao.noOfTeachers();
+	totalStudents = studentDao.noOfStudents();
+	
+	%>
+	
+<%
+	if(role.equalsIgnoreCase("admin"))
+		profile+="/admin.jsp";
+	else if(role.equalsIgnoreCase("teacher"))
+		profile+="/teacher.jsp";
+	else if(role.equalsIgnoreCase("student"))
+		profile+="/student.jsp";
+%>
+ 	
+	
+	
     <header>
        <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
        <h1>MBK Education</h1>
     </header>
+    
+    	<%
+		if(userName != null){
+		%>
+        <h3 style="text-align:left; color:blue;" >Welcome</h3>
+        <p style="text-align:left; color:blue;" ><%=userName%></p>
+         <%
+		}
+         %>
+         
     <nav>
         <a href="Home.jsp">Home</a>&ensp;|&ensp;
         <a href="#">About us</a>&ensp;|&ensp;
         <a href="#">Contact us</a>&ensp;|&ensp;
-        <a href="<%=profile %>">Profile</a>&ensp;|&ensp;
+        <a href="<%=profile%>">Profile</a>&ensp;|&ensp;
         <a  href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
         <hr>
     </nav>
@@ -59,9 +92,9 @@
                     <td><b>Classes</b></td>
                 </thead>
                 <tr>
-                    <td>${teacher.getEmail()}</td>
-                    <td>value#</td>
-                    <td>value#</td>
+                    <td><%=totalTeachers %></td>
+                    <td><%=totalStudents %></td>
+                    <td></td>
                 </tr>
             </table>
         </section>

@@ -16,8 +16,10 @@ import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import com.studentmanagement.bean.Student;
 import com.studentmanagement.bean.Teacher;
+import com.studentmanagement.dao.StudentDaoI;
 import com.studentmanagement.dao.TeacherDaoI;
 import com.studentmanagement.dao.TeacherDaoImpl;
+import com.studentmanagement.util.DaoUtil;
 import com.studentmanagement.util.DbConnectionUtil;
 
 import java.sql.*;
@@ -35,33 +37,53 @@ public class LoginServlet extends HttpServlet {
 	private Teacher teacher = null ;
 	private Student student = null ;
 	
+	private StudentDaoI studentDao = null;
+	private TeacherDaoI teacherDao = null;
+	
 	HttpSession session ;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Loginservlet triggred");
+		System.out.println("-->Loginservlet triggred");
 		
 		session = request.getSession();
+		
 		// getting the value of role 
 		role = (String) request.getParameter("role");
 		email = request.getParameter("email");
 		pass = request.getParameter("password");
 		
 		session.setAttribute("role", role);
+
 		
 		if(role.equalsIgnoreCase("admin")) {
 			//code should be written
 		}else if(role.equalsIgnoreCase("teacher")) {
 		
-			 teacher = new  TeacherDaoImpl().read(email);
+			 teacherDao = (teacherDao != null)?teacherDao:DaoUtil.getTeacherDaoObject();
+			 teacher = teacherDao.read(email);
 			 System.out.println(teacher);
 			 //Setting teacher object to session
-			 session.setAttribute("teacher", teacher);
 			 session.setAttribute("userName", teacher.getName());
+			 session.setAttribute("email", teacher.getEmail());
+			 
+			 response.sendRedirect("Home.jsp");
+			 
 		}else if(role.equalsIgnoreCase("student")) {
-			//code should be written
+			studentDao = (studentDao != null)?studentDao:DaoUtil.getStudentDaoObject();
+			student = studentDao.read(email);
+			
+			//setting the username to the session
+			session.setAttribute("userName", student.getName());
+			session.setAttribute("email", student.getEmail());
+			
+			response.sendRedirect("Home.jsp");
+			System.out.println("student response sent to Home");
+		}else {
+			request.setAttribute("loginstatus", "false");
+			response.sendRedirect("login.jsp");
 		}
 		
-		response.sendRedirect("Home.jsp");
+		
 		
 
 	}

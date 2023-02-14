@@ -1,4 +1,6 @@
 
+<%@page import="com.studentmanagement.util.DaoUtil"%>
+<%@page import="com.studentmanagement.dao.TeacherDaoI"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Import"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,10 +12,13 @@
 		if(session.getAttribute("userName") == null )
 				response.sendRedirect("signup.jsp");
 %>
-
-<% 
-	Teacher teacher = (Teacher)session.getAttribute("teacher");
+<!-- 	getting teacher data from database -->
+<%	
+	Teacher teacher = null;
+	TeacherDaoI teacherDao = DaoUtil.getTeacherDaoObject();
+	teacher = teacherDao.read((String)session.getAttribute("email"));
 %>
+
 
 
 
@@ -74,7 +79,7 @@
         
      </table>
      <br>
-     <button href="<%=request.getContextPath() %>/editteacher" >Edit</button>
+     <button ><a href="<%=request.getContextPath() %>/teacher-edit.jsp" >Edit</a></button>
 
      <footer>
         <a href="#">Privacy Policy</a>&ensp;

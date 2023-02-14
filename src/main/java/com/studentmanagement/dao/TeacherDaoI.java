@@ -7,4 +7,5 @@ public interface TeacherDaoI {
 	public Teacher read(String teacherEmail);
 	public int update(Teacher teacher);
 	public int delete(int teacherId);
+	public int noOfTeachers();
 }
