@@ -25,6 +25,12 @@ public class TeacherController extends HttpServlet {
 	private String name,sex,phone,father,dob,grade,email,parPhone,role,pass = null;
 	private long salary;
 	private int result1 = 0;
+	
+	@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			System.out.println("--> sending to doPost");
+			doPost(req, resp);
+		}
  
 	protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getServletPath();
@@ -32,7 +38,7 @@ public class TeacherController extends HttpServlet {
 		switch(action) {
 		case "/updateteacher":
 
-		     	role = request.getParameter("role");
+		     	role = (String)request.getSession().getAttribute("role");
 				id = Integer.parseInt(request.getParameter("id"));
 				name = request.getParameter("name");
 				dob = request.getParameter("dob");
@@ -52,11 +58,28 @@ public class TeacherController extends HttpServlet {
 			if(result1 > 0) {
 				System.out.println("TeacherController -> Update Sucesssfull");
 				request.setAttribute("status", "true");
-				response.sendRedirect("teacher.jsp");
+				if(role.equalsIgnoreCase("teacher"))
+					response.sendRedirect("teacher.jsp");
+				else if(role.equalsIgnoreCase("admin"))
+					response.sendRedirect("All-Teachers.jsp");
 			}else {
 				request.setAttribute("status", "false");
-				response.sendRedirect("teacher-edit.jsp");
+				if(role.equalsIgnoreCase("teacher"))
+					response.sendRedirect("teacher.jsp");
+				else if(role.equalsIgnoreCase("admin"))
+					response.sendRedirect("All--Teachers.jsp");
 			}
+			break;
+		case "/deleteteacher" :
+			email = request.getParameter("email");
+			teacherDao = (teacherDao != null)?teacherDao:DaoUtil.getTeacherDaoObject();
+			result1 = teacherDao.delete(email);
+			if(result1 > 0) {
+				request.setAttribute("status", "true");
+			}else {
+				request.setAttribute("status", "false");
+			}
+			response.sendRedirect("All-Teachers.jsp");
 			break;
 		default : 
 			

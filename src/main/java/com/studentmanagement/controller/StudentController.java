@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.Session;
 import com.studentmanagement.bean.Student;
 import com.studentmanagement.dao.StudentDaoI;
 import com.studentmanagement.util.DaoUtil;
 
-@WebServlet({ "/addstudent", "/updatestudent" })
+@WebServlet({ "/addstudent", "/updatestudent", "/deletestudent" })
 public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,8 +26,23 @@ public class StudentController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    	try {
+    		System.out.println("--> passed to dopost");
+			doPost(request, response);
+		} catch (ServletException e) {
+		
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String role = (String)request.getSession().getAttribute("role");
 		String path = request.getServletPath();
 		System.out.println(request.getServletPath());
 		switch(path) {
@@ -43,11 +59,31 @@ public class StudentController extends HttpServlet {
 				result = studentDao.update(student);
 				if(result >0) {
 					request.setAttribute("status", "true");
-					response.sendRedirect("student.jsp");
+					if(role.equalsIgnoreCase("student"))
+						response.sendRedirect("student.jsp");
+					else if(role.equalsIgnoreCase("admin"))
+						response.sendRedirect("admin.jsp");
 				}else {
 					request.setAttribute("status", "false");
-					response.sendRedirect("student.jsp");
+					if(role.equalsIgnoreCase("student"))
+						response.sendRedirect("student.jsp");
+					else if(role.equalsIgnoreCase("admin"))
+						response.sendRedirect("admin.jsp");
 				}
+			break;
+		case "/deletestudent":
+				System.out.println("--> studentController -> deletedtudent");
+				String email = request.getParameter("email");
+				studentDao = (studentDao != null)?studentDao:DaoUtil.getStudentDaoObject();
+				int result = studentDao.delete(email);
+				if(result > 0) {
+					request.setAttribute("deleteStatus", "true");
+					response.sendRedirect("All-Students.jsp");
+				}else {
+					request.setAttribute("deleteStatus", "false");
+					response.sendRedirect("All-Students.jsp");
+				}
+				
 			break;
 		case "addstudent" :
 			break;

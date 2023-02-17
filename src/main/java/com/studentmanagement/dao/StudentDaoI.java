@@ -1,5 +1,7 @@
 package com.studentmanagement.dao;
 
+import java.util.List;
+
 import com.studentmanagement.bean.Student;
 
 public interface StudentDaoI {
@@ -8,4 +10,5 @@ public interface StudentDaoI {
 	public int update(Student student);
 	public int delete(String email);
 	public int noOfStudents();
+	public List<Student> getAllStudents() ;
 }

@@ -1,6 +1,9 @@
 package com.studentmanagement.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.studentmanagement.bean.Teacher;
 import com.studentmanagement.util.DbConnectionUtil;
 
@@ -14,6 +17,8 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	private final String UPDATE_QUERY =	"update teachers set name = ? ,father = ?, dob = ?,sex = ?, phone = ?, pass = ? ,salary = ?, attendance =? where email = ?";
 	private final String DELETE_QUERY = "delete from teachers where email = ?";
 	private final String NO_OF_TEACHERS ="select count(*) from teachers;";
+	private final String All_TEACHERS = "select * from teachers";
+	
 	/**
 	 * Data Base resources
 	 */
@@ -21,6 +26,7 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	private PreparedStatement pStatement = null;
 	private Statement statement = null;
 	private ResultSet results = null;
+	private int result ;
 	
 	
 	/**
@@ -179,8 +185,25 @@ public class TeacherDaoImpl implements TeacherDaoI {
 	}
 
 	@Override
-	public int delete(int teacherId) {
-		// TODO Auto-generated method stub
+	public int delete(String email) {
+		System.out.println("--> TeacherDaoImpl -> delete");
+		connection = (connection != null)?connection:DbConnectionUtil.getDbConnection();
+		try {
+		pStatement = connection.prepareStatement(DELETE_QUERY);
+		pStatement.setString(1, email);
+		result = pStatement.executeUpdate();
+		if(result > 0) {
+			System.out.println("--> Teacher Deleted Sucess");
+			System.out.println("----------------------------------------");
+		}else {
+			System.out.println("--> Teacher Delet Failure");
+			System.out.println("----------------------------------------");
+		}
+		return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 	
@@ -204,4 +227,44 @@ public class TeacherDaoImpl implements TeacherDaoI {
 		return 0;
 		
 	}
+
+	@Override
+	public List<Teacher> allTeachers() {
+		System.out.println("--> TeacherDaoImpl allTeachers() ");
+		
+		List<Teacher> teachers = new ArrayList<Teacher>();
+		
+		connection = (connection!=null)?connection:DbConnectionUtil.getDbConnection();
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(All_TEACHERS);
+			
+			while(results.next()){
+				id = results.getInt("teacherId");
+				name = results.getString("name");
+				father = results.getString("father");
+				dob = results.getString("dob");
+				sex = results.getString("sex");
+				phone = results.getString("phone");
+				email = results.getString("email");
+				pass = results.getString("pass");
+				salary = results.getLong("salary");
+				attendance = results.getInt("attendance");
+				
+				// creating a teacher object
+				teacher = new Teacher(name, dob, sex, father, phone, email, pass, attendance, salary);
+				teachers.add(teacher);
+			}
+			System.out.println("--allTeachers value sent");
+			System.out.println("-----------------------------------------");
+			return teachers;
+		} catch (SQLException e) {
+			System.out.println("-->allTeachers Exception");
+			System.out.println("-----------------------------------------");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 }

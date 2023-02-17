@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.coyote.Request;
 import org.apache.jasper.tagplugins.jstl.core.Out;
 
+import com.studentmanagement.bean.Admin;
 import com.studentmanagement.bean.Student;
 import com.studentmanagement.bean.Teacher;
+import com.studentmanagement.dao.AdminDaoI;
 import com.studentmanagement.dao.StudentDaoI;
 import com.studentmanagement.dao.TeacherDaoI;
 import com.studentmanagement.dao.TeacherDaoImpl;
@@ -36,9 +38,11 @@ public class LoginServlet extends HttpServlet {
 	
 	private Teacher teacher = null ;
 	private Student student = null ;
+	private Admin	admin	= null ;
 	
 	private StudentDaoI studentDao = null;
 	private TeacherDaoI teacherDao = null;
+	private AdminDaoI adminDao	= null ;
 	
 	HttpSession session ;
 	
@@ -56,7 +60,17 @@ public class LoginServlet extends HttpServlet {
 
 		
 		if(role.equalsIgnoreCase("admin")) {
-			//code should be written
+			adminDao = DaoUtil.getAdminDaoObject();
+			admin = adminDao.findByEmailPass(email, pass);
+			if(admin != null) {
+				session.setAttribute("userName", admin.getName());
+				session.setAttribute("email", admin.getEmail());
+				System.out.println("--> redirecting to admin panel");
+				response.sendRedirect("admin.jsp");
+			}else {
+				request.setAttribute("status", "fail");
+				response.sendRedirect("login.jsp");
+			}
 		}else if(role.equalsIgnoreCase("teacher")) {
 		
 			 teacherDao = (teacherDao != null)?teacherDao:DaoUtil.getTeacherDaoObject();

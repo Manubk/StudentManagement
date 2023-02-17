@@ -49,55 +49,54 @@
          <hr>
      </nav>
      <h1 style="text-align:center;">Details</h1>
-     <form action="updatestudent" method="post">
      	 <table>
         <tr>
             <td><b>Id :</b> </td>
-            <td><input type="number" name="id" value="<%=student.getStudent_Id()%>"></td>
+            <td><%=student.getStudent_Id()%></td>
             <td><b>Email :<b></td>
-            <td><input type="email" name="email" value="<%=student.getEmail() %>"></td>
+            <td><%=student.getEmail() %></td>
         </tr>
         <tr>
             <td><b>Name :</b> </td>
-            <td><input type="text" name="name" value="<%=student.getName() %>"></td>
+            <td><%=student.getName() %></td>
             <td><b>Password :</b></td>
-            <td><input type="text" name="password" value="<%=student.getPass() %>"></td>
+            <td><%=student.getPass() %></td>
         </tr>
         <tr>
             <td><b>Father :</b> </td>
-            <td><input type="text" name="father" value="<%=student.getFather() %>"></td>
+            <td><%=student.getFather() %></td>
             <td><b>Mother :</b></td>
-            <td><input type="text" name="mother" value="<%=student.getMother() %>"></td>
+            <td><%=student.getMother() %></td>
         </tr>
         <tr>
             <td><b>Dob :</b> </td>
-            <td><input type="date" name="dob" value="<%=student.getDob() %>"></td>
+            <td><%=student.getDob() %></td>
             <td><b>Class :</b></td>
-            <td><input type="number" name="classId" value="<%=student.getClass_Id() %>"></td>
+            <td><%=student.getClass_Id() %></td>
         </tr>
         <tr>
             <td><b>Gender :</b> </td>
-            <td><input type="text" name="sex" value="<%=student.getSex() %>"></td>
+            <td><%=student.getSex() %></td>
             <td><b>Grade :</b></td>
-            <td><input type="number" name="grade" value="<%=student.getGrade() %>"></td>
+            <td><%=student.getGrade() %></td>
         </tr>
         <tr>
             <td><b>Phone :</b> </td>
-            <td><input type="number" name="phone" value="<%=student.getPhone()%>"></td>
+            <td><%=student.getPhone()%></td>
             <td><b>Fee Paid :</b></td>
-            <td><input type="number" name="feePaid" value="<%=student.getFreePaid() %>"></td>
+            <td><%=student.getFreePaid() %></td>
         </tr>
         <tr>
             <td><b>Par Phone :</b> </td>
-            <td><input type="number" name="parPhone" value="<%=student.getParPhone() %>"></td>
+            <td><%=student.getParPhone() %></td>
             <td><b>Attendance :</b></td>
-            <td><input type="number" name="attendance" value="<%=student.getAttandance() %>"></td>
+            <td><%=student.getAttandance() %></td>
         </tr>
      </table>
      <br>
-    	<input type="submit" value="save">
+    	<button><a href="<%=request.getContextPath()%>/student-edit.jsp?email=<%=student.getEmail()%>">edit</a></button>
      <br>
-     </form>
+  
     
      <footer>
         <a href="#">Privacy Policy</a>&ensp;

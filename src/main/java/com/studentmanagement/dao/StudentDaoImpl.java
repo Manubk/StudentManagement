@@ -1,10 +1,13 @@
 package com.studentmanagement.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.studentmanagement.bean.Student;
 import com.studentmanagement.util.DbConnectionUtil;
@@ -18,15 +21,16 @@ public class StudentDaoImpl implements StudentDaoI {
 	
 	
 	//Bean
-	Student student = null;
-	
+	private Student student = null;
+	private List<Student> students = null;
 	
 	//Db Querys
 	private final String CREATE_QUERY = "insert into students (class_id, name, dob,sex,father,mother,phone,parphone,email,pass,grade,attandance,feepaid) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private final String NO_OF_STUDENTS = "select count(*) from students"; 
 	private final String READ_STUDENT ="select * from students where email = ?";
 	private final String UPDATE_STUDENT ="update students set student_id = ? , class_id =?, name = ? ,dob = ?,sex = ?,father = ? ,mother = ? ,phone = ? ,parphone = ? , email = ? ,pass = ? ,grade = ?,feepaid= ?,attandance = ? where email = ?";
-	
+	private final String SELECT_STUDENTS = "select * from students";
+	private final String DELETE_STUDENT ="delete from students where email = ?";
 	private int student_Id ;
 	private int class_Id;
 	private String name;
@@ -151,7 +155,26 @@ public class StudentDaoImpl implements StudentDaoI {
 
 	@Override
 	public int delete(String email) {
-		// TODO Auto-generated method stub
+		System.out.println("--> StudentDaoImpl -> delete");
+		try {
+		connection = (connection != null)?connection:DbConnectionUtil.getDbConnection();
+		pStatement = connection.prepareStatement(DELETE_STUDENT);
+		pStatement.setString(1, email);
+		result1 = pStatement.executeUpdate();
+		if(result1 > 0) {
+			System.out.println("--> delected successful");
+			System.out.println("----------------------------------------");
+		}else {
+			System.out.println("--> found error ");
+			System.out.println("----------------------------------------");
+		}
+		return result1;
+		} catch (SQLException e) {
+			System.out.println("-->delete Exception");
+			System.out.println("----------------------------------------");
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 
@@ -175,6 +198,36 @@ public class StudentDaoImpl implements StudentDaoI {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+		System.out.println("--> StudentDaoImpl -> getAllStudents ");
+		students = new ArrayList<Student>();
+		try {
+		connection = (connection != null)?connection:DbConnectionUtil.getDbConnection();
+		
+		statement = connection.createStatement();
+		result = statement.executeQuery(SELECT_STUDENTS);
+		
+		while(result.next()) {
+			student = new Student(result.getInt("student_id"), result.getInt("class_id"),
+					   result.getString("name"), result.getString("dob"), result.getString("sex"),
+					   result.getString("father"), result.getString("mother"),result.getString("phone"),
+					   result.getString("parphone"),result.getString("email"),result.getString("pass"),
+					   result.getInt("grade"), result.getInt("attandance"),result.getLong("feepaid"));
+			
+			students.add(student);
+		}
+		System.out.println("--> sent list of students");
+		System.out.println("--------------------------------------");
+		return students;
+		} catch (SQLException e) {
+			System.out.println("-->getAllstudents Exception");
+			System.out.println("--------------------------------------");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

@@ -16,7 +16,9 @@ if(session.getAttribute("userName") == null )
 <%	
 	Teacher teacher = null;
 	TeacherDaoI teacherDao =  DaoUtil.getTeacherDaoObject();
-	teacher = teacherDao.read((String)session.getAttribute("email"));
+// 	teacher = teacherDao.read((String)session.getAttribute("email"));
+	teacher = teacherDao.read(request.getParameter("email"));
+	System.out.print(request.getParameter("email"));
 %>
 
 

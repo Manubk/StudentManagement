@@ -10,12 +10,13 @@
     <title>MBK Edu | Login</title>
   </head>
   <body>
-  <% if(request.getAttribute("loginstatus")!=null){
-	  	String loginError = (String)request.getAttribute("loginstatus");
-	  if(loginError.equalsIgnoreCase("false")){
+  <% if(request.getAttribute("status")!=null){
+	  	String loginError = (String)request.getAttribute("status");
+	  	System.out.print(loginError);
+	  	if(loginError.equalsIgnoreCase("false")){
 		  %>
-		  <p style="text-align: center; color: red;">Wrong Credentials</p>
-	 <%
+		  <p style="text-align: center; color: red;">Wrong Credentials try again</p>
+	 	  <%
 	  }
   }
 	 %> 
@@ -32,6 +33,7 @@
               <td>
                 <select name="role">
                   <option selected>Select</option>
+                  <option value="admin">Admin</option>
                   <option value="teacher">Teacher</option>
                   <option value="student">Student</option>
                 </select>

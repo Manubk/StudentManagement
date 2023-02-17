@@ -5,8 +5,14 @@ public class Admin {
 	private String name;
 	private String email;
 	private String pass;
-	
-	
+		
+	public Admin(int id, String name, String email, String pass) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.pass = pass;
+	}
 	public int getId() {
 		return id;
 	}
