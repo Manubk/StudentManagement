@@ -77,15 +77,7 @@ public class TeacherDaoImpl implements TeacherDaoI {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				System.out.println(" TeacherDaoImpl --> Closing the Resources ");
-				connection.close();
-				pStatement.close();
-				if(results != null)
-					results.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			
 		}
 		return 0;
@@ -233,7 +225,7 @@ public class TeacherDaoImpl implements TeacherDaoI {
 		System.out.println("--> TeacherDaoImpl allTeachers() ");
 		
 		List<Teacher> teachers = new ArrayList<Teacher>();
-		
+		System.out.println("creating connecton");
 		connection = (connection!=null)?connection:DbConnectionUtil.getDbConnection();
 		try {
 			statement = connection.createStatement();

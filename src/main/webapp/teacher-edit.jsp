@@ -39,8 +39,8 @@ if(session.getAttribute("userName") == null )
      </header>
      <nav>
          <a href="Home.jsp">Home</a>&ensp;|&ensp;
-         <a href="#">About us</a>&ensp;|&ensp;
-         <a href="#">Contact us</a>&ensp;|&ensp;
+         <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
+         <a href="contactus.jsp">Contact us</a>&ensp;|&ensp;
          <a href="<%=session.getAttribute("profile") %>">Profile</a>&ensp;|&ensp;
          <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
          <hr>

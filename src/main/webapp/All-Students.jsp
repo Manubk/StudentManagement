@@ -37,7 +37,7 @@
          <a href="#">Contact us</a>&ensp;|&ensp;
          <a href="#">Profile</a>&ensp;|&ensp;
          <a href="admin.jsp">Admin<a>&ensp;|&ensp;
-         <a href="#">Logout</a>&ensp;
+         <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
          <hr>
      </nav>
      <%
@@ -94,6 +94,7 @@
                 }
                %>
             </table>
+            <button style="align-self: flex-end;"><a href="add-student.jsp">Add New Student</a></button>
         </div>
      </div>
      <%

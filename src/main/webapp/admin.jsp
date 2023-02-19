@@ -5,6 +5,7 @@
 <%
 	String role = (String)session.getAttribute("role");
 	String userName = (String)session.getAttribute("userName");
+	System.out.print(role);
 	if(!(role != null && role.equalsIgnoreCase("admin")))
 		response.sendRedirect("login.jsp");
 %>
@@ -25,8 +26,8 @@
      </header>
      <nav>
          <a href="Home.jsp">Home</a>&ensp;|&ensp;
-         <a href="#">About us</a>&ensp;|&ensp;
-         <a href="#">Contact us</a>&ensp;|&ensp;
+         <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
+         <a href="contactus.jsp">Contact us</a>&ensp;|&ensp;
          <a href="#">Profile</a>&ensp;|&ensp;
          <a href="<%=request.getContextPath()%>/admin.jsp">Admin</a>&ensp;|&ensp;
          <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;

@@ -21,11 +21,13 @@ public class logoutServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("userName")!=null) {
+		
 			System.out.println("logoutServlet");
 			request.getSession().removeAttribute("userName");
+			request.getSession().removeAttribute("role");
+			System.out.println(request.getSession().getAttribute("role"));
 			System.out.println("--> killing session");
-		}
+		
 		response.sendRedirect("Home.jsp");
 		
 

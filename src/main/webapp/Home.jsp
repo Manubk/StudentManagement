@@ -24,8 +24,7 @@
 
 	<% 
 	String userName =(String)session.getAttribute("userName");
-		if(userName == null)
-			response.sendRedirect("login.jsp");
+			
 	%>	
 <!-- 	declearing the required variables for this page -->
 	<%
@@ -45,13 +44,14 @@
 	
 	%>
 	
-<%
+<% 	if(role != null) {
 	if(role.equalsIgnoreCase("admin"))
 		profile+="/admin.jsp";
 	else if(role.equalsIgnoreCase("teacher"))
 		profile+="/teacher.jsp";
 	else if(role.equalsIgnoreCase("student"))
 		profile+="/student.jsp";
+}
 %>
  	
 	
@@ -72,10 +72,20 @@
          
     <nav>
         <a href="Home.jsp">Home</a>&ensp;|&ensp;
-        <a href="#">About us</a>&ensp;|&ensp;
-        <a href="#">Contact us</a>&ensp;|&ensp;
+        <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
+        <a href="contactus.jsp">Contact us</a>&ensp;|&ensp;
+        
+        <% if(userName != null ){ %>
         <a href="<%=profile%>">Profile</a>&ensp;|&ensp;
         <a  href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
+        <%
+        }
+        else{
+        %>
+        <a href="<%=request.getContextPath()%>/login.jsp">Login</a>&ensp;
+        <%
+        }
+        %>
         <hr>
     </nav>
     <main>
@@ -111,8 +121,8 @@
         </div>
     </main>
     <footer>
-        <a href="#">Privacy Policy</a>&ensp;
-        <a href="#">Contact us</a>&ensp;
+        <a href="privacy-and-policy.jsp">Privacy Policy</a>&ensp;
+        <a href="contactus.jsp">Contact us</a>&ensp;
         <a>&copy; 2023 | Mbk education</a>
     </footer>
     

@@ -40,7 +40,7 @@
          <a href="#">About us</a>&ensp;|&ensp;
          <a href="#">Contact us</a>&ensp;|&ensp;
          <a href="#">Profile</a>&ensp;|&ensp;
-         <a href="/admin.html">Admin<a>&ensp;|&ensp;
+         <a href="admin.jsp">Admin<a>&ensp;|&ensp;
          <a href="#">Logout</a>&ensp;
          <hr>
      </nav>
@@ -77,11 +77,12 @@
                 </tr>
                 <%}%>
             </table>
+            <button><a href="addteacher.jsp">Add New Teacher</a> </button>
         </div>
      </div>
      <footer >
-        <a href="#">Privacy Policy</a>&ensp;
-        <a href="#">Contact us</a>&ensp;
+        <a href="privacy-and-policy.jsp">Privacy Policy</a>&ensp;
+        <a href="contactus.jsp">Contact us</a>&ensp;
         <a>&copy; 2023 | Mbk education</a>
      </footer>
 </body>

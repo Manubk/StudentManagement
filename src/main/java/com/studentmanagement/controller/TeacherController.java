@@ -14,7 +14,7 @@ import com.studentmanagement.util.DaoUtil;
 /**
  * Servlet implementation class TeacherController
  */
-@WebServlet({ "/saveteacher", "/deleteteacher", "/updateteacher", "/getteacher" })
+@WebServlet({ "/addteacher", "/deleteteacher", "/updateteacher", "/getteacher" })
 public class TeacherController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -80,6 +80,31 @@ public class TeacherController extends HttpServlet {
 				request.setAttribute("status", "false");
 			}
 			response.sendRedirect("All-Teachers.jsp");
+			break;
+		case "/addteacher" :
+			name = request.getParameter("name");
+			dob = request.getParameter("dob");
+			sex = request.getParameter("sex");
+			father = request.getParameter("father");
+		    email = request.getParameter("email");
+			pass = request.getParameter("password");
+			phone = request.getParameter("phone"); 
+			attendance = Integer.parseInt((String)request.getParameter("attendance"));
+			salary = Long.parseLong(request.getParameter("salary"));
+			
+			teacher = new Teacher(name, dob, sex, father, phone, email, pass, attendance, salary);
+			teacherDao = (teacherDao != null)?teacherDao:DaoUtil.getTeacherDaoObject();
+			result1 = teacherDao.create(teacher);
+			
+			if(result1 >0) {
+				request.setAttribute("status", "true");
+				response.sendRedirect("All-Teachers.jsp");
+			}else {
+				request.setAttribute("status", "false");
+				response.sendRedirect("addteacher.jsp");
+			}
+
+					
 			break;
 		default : 
 			

@@ -85,7 +85,23 @@ public class StudentController extends HttpServlet {
 				}
 				
 			break;
-		case "addstudent" :
+		case "/addstudent" :
+			student = new Student(Integer.parseInt(request.getParameter("classId")),request.getParameter("name"),
+					request.getParameter("dob"), request.getParameter("sex"),request.getParameter("father"),
+					request.getParameter("mother"), request.getParameter("phone"),request.getParameter("parPhone"), 
+					request.getParameter("email"), request.getParameter("password"),Integer.parseInt(request.getParameter("grade")),
+					Integer.parseInt(request.getParameter("attendance")),Long.parseLong(request.getParameter("feePaid")));
+			studentDao = (studentDao != null)?studentDao:DaoUtil.getStudentDaoObject();
+			result = studentDao.create(student);
+			if(result > 0) {
+				request.setAttribute("status", "true");
+				response.sendRedirect("All-Students.jsp");
+			}else {
+				request.setAttribute("status", "fail");
+				response.sendRedirect("add-student.jsp");
+			}
+
+			
 			break;
 		}
 	}
