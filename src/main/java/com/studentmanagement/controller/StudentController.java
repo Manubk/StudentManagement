@@ -101,8 +101,9 @@ public class StudentController extends HttpServlet {
 				response.sendRedirect("add-student.jsp");
 			}
 
-			
 			break;
+			
+		
 		}
 	}
 

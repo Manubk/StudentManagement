@@ -23,17 +23,18 @@
 	 <header>
        <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
        <h1>MBK Education</h1>
-    </header>
+    
      <nav>
         <a href="Home.jsp">Home</a>&ensp;|&ensp;
         <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
         <a href="contactus.jsp">Contact us</a>&ensp;
      </nav> 
-	  
+     <hr>
+	  </header>
   
   
     <div class="parent">
-      <div class="child1">
+      <div class="child">
         <h1>Sign in</h1>
         <form action="login" method="post">
           <table>

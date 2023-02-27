@@ -11,4 +11,5 @@ public interface StudentDaoI {
 	public int delete(String email);
 	public int noOfStudents();
 	public List<Student> getAllStudents() ;
+	public List<Student> studentOfClass(int class_id);
 }

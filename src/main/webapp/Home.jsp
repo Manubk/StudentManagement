@@ -1,3 +1,4 @@
+<%@page import="com.studentmanagement.dao.ClassDaoI"%>
 <%@page import="com.studentmanagement.dao.StudentDaoI"%>
 <%@page import="com.studentmanagement.dao.TeacherDaoI"%>
 <%@page import="com.studentmanagement.util.DaoUtil"%>
@@ -30,6 +31,7 @@
 	<%
 	TeacherDaoI teacherDao = DaoUtil.getTeacherDaoObject();
 	StudentDaoI studentDao = DaoUtil.getStudentDaoObject();
+	ClassDaoI classDao = DaoUtil.getClassDaoObject();
 		
 	int totalTeachers = 0;
 	int totalStudents = 0;
@@ -41,7 +43,7 @@
 	<%
 	totalTeachers = teacherDao.noOfTeachers();
 	totalStudents = studentDao.noOfStudents();
-	
+	totalCalsses = classDao.noOfClasses();
 	%>
 	
 <% 	if(role != null) {
@@ -59,7 +61,7 @@
     <header>
        <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
        <h1>MBK Education</h1>
-    </header>
+    
     
     	<%
 		if(userName != null){
@@ -88,26 +90,27 @@
         %>
         <hr>
     </nav>
+    </header>
     <main>
         <section>
             <h1>Our Vesion</h1>
             <p>Our vision is to develop well rounded, confident and responsible individuals who aspire to achieve their full potential. We will do this by providing a welcoming, happy, safe, and supportive learning environment in which everyone is equal and all achievements are celebrated</p>
         </section>
 
-        <section>
+       
             <table>
-                <thead>
-                    <td><b>Teachers</b></td>
-                    <td><b>Students</b></td>
-                    <td><b>Classes</b></td>
-                </thead>
+           			<tr>
+           			<th>Teachers</th>
+                    <th>Students</th>
+                    <th>Classes</th>
+           			</tr>
                 <tr>
                     <td><%=totalTeachers %></td>
                     <td><%=totalStudents %></td>
-                    <td></td>
+                    <td><%=totalCalsses %></td>
                 </tr>
             </table>
-        </section>
+      
         <br>
         <section>
             <img src="resources/pic1.jpg" alt="MBK Edu" width="33%">
@@ -116,7 +119,7 @@
         </section>
         <div>
             <form action="/classdetails.html">
-                <h2><button type="submit">View Your Class Details</button></h2>
+                <button type="submit">View Your Class Details</button>
             </form>
         </div>
     </main>

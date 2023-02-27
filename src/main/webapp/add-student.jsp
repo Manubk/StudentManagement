@@ -31,7 +31,7 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
     <header>
         <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
         <h1>MBK Education</h1>
-     </header>
+     
      <nav>
          <a href="Home.jsp">Home</a>&ensp;|&ensp;
          <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
@@ -40,6 +40,9 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
          <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
          <hr>
      </nav>
+     </header>
+     <div class="parent">
+     <div class="child">
      <h1 style="text-align: center;">Fill Details</h1>
       <form action="addstudent" method="post">
      	 <table>
@@ -53,7 +56,7 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
             <td><b>Name :</b> </td>
             <td><input type="text" name="name" "></td>
             <td><b>Password :</b></td>
-            <td><input type="text" name="password" </td>
+            <td><input type="text" name="password"></td>
         </tr>
         <tr>
             <td><b>Father :</b> </td>
@@ -99,6 +102,10 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
      <br>
      </form>
     
+     
+     </div>
+     </div>
+     
      <br>
 
      <footer>

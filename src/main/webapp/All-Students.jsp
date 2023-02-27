@@ -24,13 +24,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet/stylesheet.css">
+  	
     <title>Mbk Edu | All Students</title>
 </head>
 <body>
     <header>
         <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
         <h1>MBK Education</h1>
-     </header>
+     
      <nav>
          <a href="/index.html">Home</a>&ensp;|&ensp;
          <a href="#">About us</a>&ensp;|&ensp;
@@ -40,6 +41,7 @@
          <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
          <hr>
      </nav>
+     </header>
      <%
      if(students.isEmpty()){
      %>
@@ -47,9 +49,10 @@
      <%
      }else{
      %>
-     <h1 style="text-align: center">All Students</h1>
-     <div class="">
-        <div class="">
+     
+     <div class="parent">
+        <div class="child">
+        <h1 style="text-align: center">All Students</h1>
             <table>
                 <tr>
                     <th>Id</th>
@@ -101,10 +104,11 @@
      }
      %>
      
-</body>
+<br>
 	<footer >
         <a href="#">Privacy Policy</a>&ensp;
         <a href="#">Contact us</a>&ensp;
         <a>&copy; 2023 | Mbk education</a>
      </footer>
+    </body>
 </html>

@@ -31,6 +31,8 @@ public class StudentDaoImpl implements StudentDaoI {
 	private final String UPDATE_STUDENT ="update students set student_id = ? , class_id =?, name = ? ,dob = ?,sex = ?,father = ? ,mother = ? ,phone = ? ,parphone = ? , email = ? ,pass = ? ,grade = ?,feepaid= ?,attandance = ? where email = ?";
 	private final String SELECT_STUDENTS = "select * from students";
 	private final String DELETE_STUDENT ="delete from students where email = ?";
+	private final String STUDENTS_OF_CLASS="select * from students where class_id = ?";
+	
 	private int student_Id ;
 	private int class_Id;
 	private String name;
@@ -227,6 +229,36 @@ public class StudentDaoImpl implements StudentDaoI {
 			System.out.println("--------------------------------------");
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Student> studentOfClass(int class_id) {
+		System.out.println("--> StudentDaoImpl --> studentOfClass");
+		try {
+		connection = (connection != null)?connection:DbConnectionUtil.getDbConnection();
+	    pStatement = connection.prepareStatement(STUDENTS_OF_CLASS);
+	    pStatement.setInt(1, class_id);
+	    result = pStatement.executeQuery();
+	    List<Student> students = new ArrayList<Student>();
+	    while(result.next()) {
+			student = new Student(result.getInt("student_id"), result.getInt("class_id"),
+					   result.getString("name"), result.getString("dob"), result.getString("sex"),
+					   result.getString("father"), result.getString("mother"),result.getString("phone"),
+					   result.getString("parphone"),result.getString("email"),result.getString("pass"),
+					   result.getInt("grade"), result.getInt("attandance"),result.getLong("feepaid"));
+			
+			students.add(student);
+		}
+	    System.out.println("--> Students returnes");
+	    System.out.println("----------------------------------------");
+	    return students;
+		} catch (SQLException e) {
+			System.out.println("--> studuntOfClass exception");
+			System.out.println("----------------------------------------");
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

@@ -34,7 +34,7 @@
     <header>
         <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
         <h1>MBK Education</h1>
-     </header>
+    
      <nav>
          <a href="/index.html">Home</a>&ensp;|&ensp;
          <a href="#">About us</a>&ensp;|&ensp;
@@ -44,9 +44,11 @@
          <a href="#">Logout</a>&ensp;
          <hr>
      </nav>
-     <h1 style="text-align: center">All Teachers</h1>
+     </header>
+     
      <div class="parent">
         <div class="child">
+        <h1 style="text-align: center">All Teachers</h1>
             <table>
                 <tr>
                     <th>Id</th>

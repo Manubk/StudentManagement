@@ -19,7 +19,7 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
  <header>
         <!-- <img src="resources/lgog.png" width="10%" height="5%"> <h1>MBK Education</h1> -->
         <h1>MBK Education</h1>
-     </header>
+    
      <nav>
          <a href="Home.jsp">Home</a>&ensp;|&ensp;
          <a href="aboutus.jsp">About us</a>&ensp;|&ensp;
@@ -28,6 +28,7 @@ if(!(role != null && role.equalsIgnoreCase("admin")))
          <a href="<%=request.getContextPath()%>/logout">Logout</a>&ensp;
          <hr>
      </nav>
+      </header>
      <div class="parent">
      <div class="child">
           <h1 style="text-align: center;">Fill Details</h1>
